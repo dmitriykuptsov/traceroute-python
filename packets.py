@@ -94,8 +94,11 @@ ICMP_LENGTH = 0x4
 ICMP_PROTOCOL_NUMBER = 0x1
 
 class ICMPPacket(Packet):
-    def __init__(self):
-        self.buffer = bytearray([0]) * ICMP_LENGTH
+    def __init__(self, buf=None):
+        if not buf:
+            self.buffer = bytearray([0]) * ICMP_LENGTH
+        else:
+            self.buffer = buf
     def set_type(self, type):
         self.buffer[ICMP_TYPE_OFFSET] = type
     def get_type(self):
@@ -146,7 +149,7 @@ class ICMPEchoPacket(ICMPPacket):
     
 ICMP_IDENTIFIER_OFFSET = 0x4
 ICMP_IDENTIFIER_LENGTH = 0x2
-ICMP_TIME_EXEEDED_OFFSET = 0x8
+ICMP_TIME_EXEEDED_OFFSET = 0xB
 
 class ICMPTimeExceededPacket(ICMPPacket):
     def __init__(self, buffer = None):
