@@ -89,7 +89,7 @@ while True:
         ip = packets.IPv4Packet(buf)
         icmp = packets.ICMPPacket(ip.get_payload())
         
-        if icmp.get_type() == packets.ICMP_ECHO_REPLY_TYPE or icmp.get_type() == packets.ICMP_TIME_EXEEDED_TYPE:
+        if icmp.get_type() == packets.ICMP_ECHO_REPLY_TYPE or icmp.get_type() == packets.ICMP_TIME_EXCEEDED_TYPE:
             src = Misc.bytes_to_ipv4_string(ip.get_source_address())
             print(str(current_hop) + " source " + src + " delay (ms) " + str((end - start)* 1000))
             if src == args.destination:
