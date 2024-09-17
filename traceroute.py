@@ -59,8 +59,6 @@ args = parser.parse_args()
 
 if not re.match("^[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}", args.destination):
     args.destination = socket.gethostbyname(args.destination.strip())
-print(args.destination.strip())
-print(args.source.strip())
 current_hop = 1
 while True:
     icmp = packets.ICMPEchoPacket()
