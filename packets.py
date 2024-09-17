@@ -75,7 +75,7 @@ class IPv4Packet(Packet):
         self.buffer[IPV4_DST_ADDRESS_OFFSET:IPV4_DST_ADDRESS_OFFSET + IPV4_DST_ADDRESS_LENGTH] = dst 
     def get_destination_address(self):
         return self.buffer[IPV4_DST_ADDRESS_OFFSET:IPV4_DST_ADDRESS_OFFSET + IPV4_DST_ADDRESS_LENGTH]
-    def set_payliad(self, payload):
+    def set_payload(self, payload):
         self.buffer = self.buffer + payload
     def get_payload(self):
         return self.buffer[IPV4_DST_ADDRESS_OFFSET + IPV4_DST_ADDRESS_LENGTH:]

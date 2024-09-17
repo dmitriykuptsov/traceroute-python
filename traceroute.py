@@ -59,7 +59,8 @@ args = parser.parse_args()
 
 if not re.match("^[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}", args.destination):
     args.destination = socket.gethostbyname(args.destination.strip())
-
+print(args.destination.strip())
+print(args.source.strip())
 current_hop = 1
 while True:
     icmp = packets.ICMPEchoPacket()
@@ -76,7 +77,7 @@ while True:
     packet.set_protocol(packets.ICMP_PROTOCOL_NUMBER)
     checksum = Checksum.checksum(packet.get_header())
     packet.set_checksum(checksum)
-    packet.set_payliad(buf)
+    packet.set_payload(buf)
 
     packet.set_total_length(int(len(packet.get_buffer())))
     start = time()
