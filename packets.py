@@ -147,9 +147,8 @@ class ICMPEchoPacket(ICMPPacket):
         sequence = (sequence << 8) | self.buffer[ICMP_SEQUENCE_OFFSET + 1]
         return sequence
     
-ICMP_IDENTIFIER_OFFSET = 0x4
-ICMP_IDENTIFIER_LENGTH = 0x2
-ICMP_TIME_EXEEDED_OFFSET = 0xB
+ICMP_IDENTIFIER_RESERVED_LENGTH = 0x4
+ICMP_TIME_EXEEDED_PAYLOAD_OFFSET = 0x8
 
 class ICMPTimeExceededPacket(ICMPPacket):
     def __init__(self, buffer = None):
@@ -159,7 +158,6 @@ class ICMPTimeExceededPacket(ICMPPacket):
             self.buffer = bytearray([0]) * (ICMP_TYPE_LENGTH + \
                                         ICMP_CODE_LENGTH + \
                                             ICMP_CHECKSUM_LENGTH + \
-                                                ICMP_IDENTIFIER_LENGTH + \
-                                                    ICMP_SEQUENCE_LENGTH)
+                                                ICMP_IDENTIFIER_RESERVED_LENGTH)
     def get_payload(self):
-        return self.buffer[ICMP_TIME_EXEEDED_OFFSET:]
+        return self.buffer[ICMP_TIME_EXEEDED_PAYLOAD_OFFSET:]
