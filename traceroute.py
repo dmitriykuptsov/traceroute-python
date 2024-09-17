@@ -87,13 +87,18 @@ while True:
         buf = icmp_socket.recv(1522)
         end = time()
         ip = packets.IPv4Packet(buf)
-        src = Misc.bytes_to_ipv4_string(ip.get_source_address())
-        print(str(current_hop) + " source " + src + " delay (ms) " + str((end - start)* 1000))
+        icmp = packets.ICMPPacket(ip.get_payload())
+        
+        if icmp.get_type() == packets.ICMP_ECHO_REPLY_TYPE or icmp.get_type() == packets.ICMP_TIME_EXEEDED_OFFSET:
+            src = Misc.bytes_to_ipv4_string(ip.get_source_address())
+            print(str(current_hop) + " source " + src + " delay (ms) " + str((end - start)* 1000))
+            if src == args.destination:
+                break
+        else:
+            print(str(current_hop) + " source * delay (ms) 0")    
     else:
         print(str(current_hop) + " source * delay (ms) 0")
-    
-    if src == args.destination:
-        break
+
     if current_hop + 1 > MAX_HOP_COUNT:
         break
     current_hop += 1
